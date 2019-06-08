@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon -e js,graphql",
-    "start": "node "
+    "start": "nodemon -e js,graphql node index.js"
   },
   "dependencies": {
     "@hapi/joi": "^15.0.3",
