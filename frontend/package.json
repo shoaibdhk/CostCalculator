@@ -1,0 +1,32 @@
+{
+  "name": "create-next-example-app",
+  "scripts": {
+    "dev": "next -p 5555",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "apollo": "^2.12.3",
+    "apollo-boost": "0.3.1",
+    "moment": "^2.24.0",
+    "next": "^8.1.0",
+    "next-cookies": "^1.1.2",
+    "next-with-apollo": "^3.4.0",
+    "nprogress": "^0.2.0",
+    "react": "^16.8.6",
+    "react-apollo": "^2.5.6",
+    "react-dom": "^16.8.6",
+    "reactstrap": "^8.0.0",
+    "styled-components": "^4.2.1",
+    "sweetalert2": "^8.11.7",
+    "sweetalert2-react-content": "^1.1.0"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Shoaib",
+    "email": "shoaib19j@gmail.com"
+  },
+  "devDependencies": {
+    "babel-plugin-styled-components": "^1.10.0"
+  }
+}

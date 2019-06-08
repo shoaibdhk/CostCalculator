@@ -1,0 +1,28 @@
+# import * from './../prisma/generated/prisma.graphql'
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  posts: [Post!]
+}
+
+type Query {
+  me: User
+  posts: [Post!]
+  post(id: ID!): Post
+}
+input Costcalculate {
+  title: String!
+  price: Float!
+}
+
+type Mutation {
+  # Auth
+  signup(name: String!, email: String!, password: String!): User!
+  signin(email: String!, password: String!): User
+  signout: Boolean!
+  # Post
+  createPost(title: String!, description: String!, costs: [Costcalculate!]!): Post
+  updatePost(title: String, description: String, costs: [Costcalculate!], postId: ID!): Post
+  deletePost(postId: ID!): Post
+}
