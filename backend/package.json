@@ -5,7 +5,8 @@
   "author": "Shoaib",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon -e js,graphql"
+    "dev": "nodemon -e js,graphql",
+    "start": "node "
   },
   "dependencies": {
     "@hapi/joi": "^15.0.3",
