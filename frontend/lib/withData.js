@@ -1,10 +1,10 @@
 import withApollo from 'next-with-apollo'
 import ApolloClient from 'apollo-boost'
-import { GRAPHQL_URL } from '../config'
+import { GRAPHQL_URL, GRAPHQL_URL_PROD } from '../config'
 
 function createClient({ headers }) {
   return new ApolloClient({
-    uri: process.env.NODE_ENV === 'development' ? GRAPHQL_URL : GRAPHQL_URL,
+    uri: process.env.NODE_ENV === 'development' ? GRAPHQL_URL : GRAPHQL_URL_PROD,
     request: operation => {
       operation.setContext({
         fetchOptions: {

@@ -1,7 +1,6 @@
-#endpoint: ${env:PRISMA_ENDPOINT}
-endpoint: https://costcalculation-ed4c3b067a.herokuapp.com/costcalculator/prod
+endpoint: https://us1.prisma.sh/shoaib-8ed8ba/budgetapp/dev
 datamodel: datamodel.prisma
-secret: ${env:PRISMA_SECRET}
+
 generate:
   - generator: javascript-client
     output: ./generated/prisma-client/
