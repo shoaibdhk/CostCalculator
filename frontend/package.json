@@ -3,7 +3,8 @@
   "scripts": {
     "dev": "next -p 5555",
     "build": "next build",
-    "start": "next start"
+    "start": "next start -p $PORT",
+    "heroku-postbuild": "next build"
   },
   "dependencies": {
     "apollo": "^2.12.3",
