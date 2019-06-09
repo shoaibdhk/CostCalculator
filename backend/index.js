@@ -16,19 +16,10 @@ server.express.use((req, res, next) => {
   next()
 })
 
-server.express.use(function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', 'https://costcalculator-prod.herokuapp.com/')
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
-  next()
-})
 server.start(
   {
     port: process.env.PORT,
-    debug: false,
-    cors: {
-      credentials: true,
-      origin: process.env.FRONTEND_URL
-    }
+    debug: false
   },
   ({ port }) => {
     console.log(`GraphQL server working at http://localhost:${port}`)
