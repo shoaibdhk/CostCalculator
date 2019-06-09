@@ -1,4 +1,4 @@
-endpoint: https://us1.prisma.sh/shoaib-8ed8ba/budgetapp/dev
+endpoint: ${env:PRISMA_ENDPOINT}
 datamodel: datamodel.prisma
 
 generate:
