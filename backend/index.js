@@ -20,10 +20,10 @@ server.start(
   {
     port: process.env.PORT,
     debug: false
-    // cors: {
-    //   credentials: true,
-    //   origin: [process.env.FRONTEND_URL]
-    // }
+    cors: {
+      credentials: true,
+      origin: [process.env.FRONTEND_URL, 'https://costcalculator-prod.herokuapp.com/']
+    }
   },
   ({ port }) => {
     console.log(`GraphQL server working at http://localhost:${port}`)
