@@ -22,7 +22,7 @@ server.start(
     debug: false,
     cors: {
       credentials: true,
-      origin: [process.env.FRONTEND_URL, 'https://costcalculator-prod.herokuapp.com/']
+      origin: [process.env.FRONTEND_URL]
     }
   },
   ({ port }) => {
