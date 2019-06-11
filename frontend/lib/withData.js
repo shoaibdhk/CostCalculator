@@ -4,10 +4,6 @@ import { GRAPHQL_URL, GRAPHQL_URL_PROD } from '../config'
 
 function createClient({ headers, initialState }) {
   return new ApolloClient({
-    credentials: 'include',
-    fetchOptions: {
-      credentials: 'include'
-    },
     uri: process.env.NODE_ENV === 'development' ? GRAPHQL_URL : GRAPHQL_URL_PROD,
     // cache: new InMemoryCache().restore(initialState || {}),
     request: operation => {
