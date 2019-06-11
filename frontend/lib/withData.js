@@ -9,7 +9,9 @@ function createClient({ headers, initialState }) {
     cache: new InMemoryCache().restore(initialState || {}),
     request: operation => {
       operation.setContext({
-        credentials: 'include',
+        fetchOptions: {
+          credentials: 'include'
+        },
         headers
       })
     }
