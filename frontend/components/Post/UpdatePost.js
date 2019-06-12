@@ -92,12 +92,7 @@ const SINGLE_ITEM_QUERY = gql`
 `
 
 const UPDATE_POST = gql`
-  mutation CREATE_POST(
-    $title: String
-    $description: String
-    $costs: [Costcalculate!]
-    $postId: ID!
-  ) {
+  mutation CREATE_POST($title: String, $description: String, $costs: [Costcalculate!], $postId: ID!) {
     updatePost(title: $title, description: $description, costs: $costs, postId: $postId) {
       id
       costs {
@@ -126,11 +121,7 @@ class UpdatePost extends React.Component {
           return (
             <Wrapper>
               <h1>Create A New Post</h1>
-              <Mutation
-                mutation={UPDATE_POST}
-                variables={{ ...this.state, postId: this.props.postId }}
-                refetchQueries={[{ query: ALL_POSTS_QUERY }]}
-              >
+              <Mutation mutation={UPDATE_POST} variables={{ ...this.state, postId: this.props.postId }} refetchQueries={[{ query: ALL_POSTS_QUERY }]}>
                 {(updatePost, { loading, error }) => {
                   let errorMessage = catchErrors(error)
                   return (
@@ -152,8 +143,7 @@ class UpdatePost extends React.Component {
 
                               const post = await updatePost()
                               if (post) return Router.push('/')
-                            }}
-                          >
+                            }}>
                             <FormGroup className='post-input'>
                               <Input
                                 type='text'
@@ -163,9 +153,7 @@ class UpdatePost extends React.Component {
                                 onChange={this.onChange}
                                 invalid={errorMessage && errorMessage.title ? true : false}
                               />
-                              {errorMessage && errorMessage.title && (
-                                <FormFeedback>{errorMessage.title}</FormFeedback>
-                              )}
+                              {errorMessage && errorMessage.title && <FormFeedback>{errorMessage.title}</FormFeedback>}
                             </FormGroup>
                             <FormGroup className='post-input'>
                               <Input
@@ -176,9 +164,7 @@ class UpdatePost extends React.Component {
                                 onChange={this.onChange}
                                 invalid={errorMessage && errorMessage.description ? true : false}
                               />
-                              {errorMessage && errorMessage.description && (
-                                <FormFeedback>{errorMessage.description}</FormFeedback>
-                              )}
+                              {errorMessage && errorMessage.description && <FormFeedback>{errorMessage.description}</FormFeedback>}
                             </FormGroup>
                             <h1>Total Costs: {formatMoney(total)}</h1>
 
@@ -191,47 +177,26 @@ class UpdatePost extends React.Component {
                                         type='text'
                                         value={cost.title}
                                         placeholder='What type of cost?'
-                                        invalid={
-                                          errorMessage &&
-                                          errorMessage.costs &&
-                                          cost.title === '' &&
-                                          errorMessage.costs.includes('title')
-                                            ? true
-                                            : false
-                                        }
+                                        invalid={errorMessage && errorMessage.costs && cost.title === '' && errorMessage.costs.includes('title') ? true : false}
                                         name={`costs[${index}].title`}
                                         onChange={e => {
                                           costs[index].title = e.target.value
                                           return this.setState({ costs })
                                         }}
                                       />
-                                      {errorMessage &&
-                                        errorMessage.costs &&
-                                        cost.title === '' &&
-                                        errorMessage.costs.includes('title') && (
-                                          <FormFeedback>{errorMessage.costs}</FormFeedback>
-                                        )}
+                                      {errorMessage && errorMessage.costs && cost.title === '' && errorMessage.costs.includes('title') && <FormFeedback>{errorMessage.costs}</FormFeedback>}
                                     </FormGroup>
                                   </Col>
                                   <Col md={5} key={`numberInput_${index}`}>
                                     <FormGroup>
                                       <Input
                                         type='number'
-                                        value={cost.price}
+                                        value={cost.price || ''}
                                         placeholder='Enter the balance'
                                         name={`costs[${index}].price`}
-                                        invalid={
-                                          errorMessage &&
-                                          errorMessage.costs &&
-                                          cost.price === 0 &&
-                                          errorMessage.costs.includes('price')
-                                            ? true
-                                            : false
-                                        }
+                                        invalid={errorMessage && errorMessage.costs && cost.price === 0 && errorMessage.costs.includes('price') ? true : false}
                                         onChange={e => {
-                                          costs[index].price = parseFloat(e.target.value)
-                                            ? parseFloat(e.target.value)
-                                            : undefined
+                                          costs[index].price = parseFloat(e.target.value) ? parseFloat(e.target.value) : undefined
                                           return this.setState({ costs })
                                         }}
                                         onBlur={() => {
@@ -245,12 +210,7 @@ class UpdatePost extends React.Component {
                                           this.setState({ total })
                                         }}
                                       />
-                                      {errorMessage &&
-                                        errorMessage.costs &&
-                                        cost.price === 0 &&
-                                        errorMessage.costs.includes('price') && (
-                                          <FormFeedback>{errorMessage.costs}</FormFeedback>
-                                        )}
+                                      {errorMessage && errorMessage.costs && cost.price === 0 && errorMessage.costs.includes('price') && <FormFeedback>{errorMessage.costs}</FormFeedback>}
                                     </FormGroup>
                                   </Col>
                                   <Col md={1} key={`button_${index}`}>
@@ -259,9 +219,7 @@ class UpdatePost extends React.Component {
                                         className='close-button'
                                         onClick={e => {
                                           e.preventDefault()
-                                          let costs = this.state.costs
-                                            ? this.state.costs
-                                            : data.post.costs
+                                          let costs = this.state.costs ? this.state.costs : data.post.costs
                                           costs.splice(index, 1)
                                           let total = this.state.total
                                           total = 0
@@ -303,8 +261,7 @@ class UpdatePost extends React.Component {
                                   })
                                 }
                                 this.setState({ costs })
-                              }}
-                            >
+                              }}>
                               Add another cost
                             </Button>
 
