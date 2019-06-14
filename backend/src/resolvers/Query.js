@@ -1,5 +1,3 @@
-const { prisma } = require('../../prisma/generated/prisma-client')
-
 const Query = {
   async me(parent, args, { request, prisma }, info) {
     if (request.userId) {
@@ -38,10 +36,8 @@ const Query = {
       .$fragment(`{id title description costs{id title price} createdAt}`)
     return posts
   },
-  async post(parent, args, { request }, info) {
-    return await prisma
-      .post({ id: args.id })
-      .$fragment(`{id title description costs{id title price} createdAt}`)
+  async post(parent, args, { request, prisma }, info) {
+    return await prisma.post({ id: args.id }).$fragment(`{id title description costs{id title price} createdAt}`)
   }
 }
 module.exports = Query

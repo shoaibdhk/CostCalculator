@@ -1,7 +1,6 @@
 const { hash, compare } = require('bcryptjs')
 const Joi = require('@hapi/joi')
 const { sign } = require('jsonwebtoken')
-const { prisma } = require('../../prisma/generated/prisma-client')
 
 const signUpSchema = Joi.object().keys({
   name: Joi.string()
@@ -141,7 +140,7 @@ const Mutation = {
       throw new Error('No posts found')
     }
   },
-  async updatePost(parent, args, { request }, info) {
+  async updatePost(parent, args, { prisma, request }, info) {
     if (!request.userId) {
       throw new Error('No user found')
     }
