@@ -22,6 +22,7 @@
     "@types/hapi__joi": "^15.0.1",
     "cross-env": "^5.2.0",
     "graphql-cli": "^3.0.11",
+    "nodemon": "^1.19.1",
     "prisma": "^1.34.0"
   }
 }
