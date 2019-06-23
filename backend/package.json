@@ -15,6 +15,7 @@
     "dotenv": "^8.0.0",
     "graphql-yoga": "^1.17.4",
     "jsonwebtoken": "^8.5.1",
+    "nodemailer": "^6.2.1",
     "prisma-binding": "^2.3.11",
     "prisma-client-lib": "^1.33.0"
   },

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { Mutation } from 'react-apollo'
 import { gql } from 'apollo-boost'
 import Router from 'next/router'
@@ -39,11 +39,7 @@ class Signon extends Component {
       <Container>
         <div className={`${this.state.container}`} id='container'>
           <div className='form-container sign-up-container'>
-            <Mutation
-              mutation={SIGNUP_MUTATION}
-              variables={this.state}
-              refetchQueries={[{ query: CURRENT_USER_QUERY }]}
-            >
+            <Mutation mutation={SIGNUP_MUTATION} variables={this.state} refetchQueries={[{ query: CURRENT_USER_QUERY }]}>
               {(singup, { data, loading, error }) => {
                 const errorMessage = catchErrors(error)
 
@@ -58,8 +54,7 @@ class Signon extends Component {
                         Router.push('/')
                       }
                     }}
-                    method='post'
-                  >
+                    method='post'>
                     <h1>Create Account</h1>
                     <div className='social-container'>
                       <a href='#' className='social'>
@@ -76,19 +71,14 @@ class Signon extends Component {
                     {Object.keys(this.state).map(key => {
                       if (key !== 'container') {
                         return (
-                          <>
-                            <input
-                              type={key}
-                              placeholder={key}
-                              name={key}
-                              value={this.state.key}
-                              onChange={this.onChangeValue}
-                              className={errorMessage && errorMessage[key] ? 'is-invalid' : ''}
-                            />
+                          <Fragment key={`input_${key}`}>
+                            <input type={key} placeholder={key} name={key} value={this.state.key} onChange={this.onChangeValue} className={errorMessage && errorMessage[key] ? 'is-invalid' : ''} />
                             {errorMessage && errorMessage[key] && (
-                              <div className='invalid-feedback'>{errorMessage[key]}</div>
+                              <div key={`inputError_${key}`} className='invalid-feedback'>
+                                {errorMessage[key]}
+                              </div>
                             )}
-                          </>
+                          </Fragment>
                         )
                       }
                     })}
@@ -99,11 +89,7 @@ class Signon extends Component {
             </Mutation>
           </div>
           <div className='form-container sign-in-container'>
-            <Mutation
-              mutation={SIGNIN_MUTATION}
-              variables={this.state}
-              refetchQueries={[{ query: CURRENT_USER_QUERY }]}
-            >
+            <Mutation mutation={SIGNIN_MUTATION} variables={this.state} refetchQueries={[{ query: CURRENT_USER_QUERY }]}>
               {(signin, { data, loading, error }) => {
                 if (loading) <p>Loading...</p>
                 const errorMessage = catchErrors(error)
@@ -116,8 +102,7 @@ class Signon extends Component {
                       if (signedIn) {
                         Router.push('/')
                       }
-                    }}
-                  >
+                    }}>
                     <h1>Sign in</h1>
                     <div className='social-container'>
                       <a href='#' className='social'>
@@ -134,19 +119,10 @@ class Signon extends Component {
                     {Object.keys(this.state).map(key => {
                       if (key !== 'container' && key !== 'name') {
                         return (
-                          <>
-                            <input
-                              type={key}
-                              placeholder={key}
-                              name={key}
-                              value={this.state.key}
-                              onChange={this.onChangeValue}
-                              className={errorMessage && errorMessage[key] ? 'is-invalid' : ''}
-                            />
-                            {errorMessage && errorMessage[key] && (
-                              <div className='invalid-feedback'>{errorMessage[key]}</div>
-                            )}
-                          </>
+                          <Fragment key={`input_${key}`}>
+                            <input type={key} placeholder={key} name={key} value={this.state.key} onChange={this.onChangeValue} className={errorMessage && errorMessage[key] ? 'is-invalid' : ''} />
+                            {errorMessage && errorMessage[key] && <div className='invalid-feedback'>{errorMessage[key]}</div>}
+                          </Fragment>
                         )
                       }
                     })}
@@ -163,12 +139,7 @@ class Signon extends Component {
               <div className='overlay-panel overlay-left'>
                 <h1>Welcome Back!</h1>
                 <p>To keep connected with us please login with your personal info</p>
-                <button
-                  className='ghost'
-                  onClick={() =>
-                    this.setState({ container: 'container', name: '', email: '', password: '' })
-                  }
-                >
+                <button className='ghost' onClick={() => this.setState({ container: 'container', name: '', email: '', password: '' })}>
                   Sign In
                 </button>
               </div>
@@ -184,8 +155,7 @@ class Signon extends Component {
                       email: '',
                       password: ''
                     })
-                  }
-                >
+                  }>
                   Sign Up
                 </button>
               </div>

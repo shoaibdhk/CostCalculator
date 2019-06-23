@@ -185,14 +185,6 @@ export interface ClientConstructor<T> {
  * Types
  */
 
-export type CostCalculateOrderByInput =
-  | "id_ASC"
-  | "id_DESC"
-  | "title_ASC"
-  | "title_DESC"
-  | "price_ASC"
-  | "price_DESC";
-
 export type PostOrderByInput =
   | "id_ASC"
   | "id_DESC"
@@ -203,6 +195,14 @@ export type PostOrderByInput =
   | "createdAt_ASC"
   | "createdAt_DESC";
 
+export type CostCalculateOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "title_ASC"
+  | "title_DESC"
+  | "price_ASC"
+  | "price_DESC";
+
 export type UserOrderByInput =
   | "id_ASC"
   | "id_DESC"
@@ -211,7 +211,13 @@ export type UserOrderByInput =
   | "email_ASC"
   | "email_DESC"
   | "password_ASC"
-  | "password_DESC";
+  | "password_DESC"
+  | "emailValidate_ASC"
+  | "emailValidate_DESC"
+  | "validEmailToken_ASC"
+  | "validEmailToken_DESC"
+  | "resetPasswordToken_ASC"
+  | "resetPasswordToken_DESC";
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
@@ -224,22 +230,123 @@ export type CostCalculateWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
 }>;
 
-export interface CostCalculateCreateInput {
-  id?: Maybe<ID_Input>;
-  title: String;
-  price: Float;
-  post: PostCreateOneWithoutCostsInput;
-}
-
-export interface CostCalculateUpsertWithWhereUniqueWithoutPostInput {
-  where: CostCalculateWhereUniqueInput;
-  update: CostCalculateUpdateWithoutPostDataInput;
-  create: CostCalculateCreateWithoutPostInput;
-}
-
 export interface PostCreateOneWithoutCostsInput {
   create?: Maybe<PostCreateWithoutCostsInput>;
   connect?: Maybe<PostWhereUniqueInput>;
+}
+
+export interface CostCalculateScalarWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  title?: Maybe<String>;
+  title_not?: Maybe<String>;
+  title_in?: Maybe<String[] | String>;
+  title_not_in?: Maybe<String[] | String>;
+  title_lt?: Maybe<String>;
+  title_lte?: Maybe<String>;
+  title_gt?: Maybe<String>;
+  title_gte?: Maybe<String>;
+  title_contains?: Maybe<String>;
+  title_not_contains?: Maybe<String>;
+  title_starts_with?: Maybe<String>;
+  title_not_starts_with?: Maybe<String>;
+  title_ends_with?: Maybe<String>;
+  title_not_ends_with?: Maybe<String>;
+  price?: Maybe<Float>;
+  price_not?: Maybe<Float>;
+  price_in?: Maybe<Float[] | Float>;
+  price_not_in?: Maybe<Float[] | Float>;
+  price_lt?: Maybe<Float>;
+  price_lte?: Maybe<Float>;
+  price_gt?: Maybe<Float>;
+  price_gte?: Maybe<Float>;
+  AND?: Maybe<CostCalculateScalarWhereInput[] | CostCalculateScalarWhereInput>;
+  OR?: Maybe<CostCalculateScalarWhereInput[] | CostCalculateScalarWhereInput>;
+  NOT?: Maybe<CostCalculateScalarWhereInput[] | CostCalculateScalarWhereInput>;
+}
+
+export interface PostCreateWithoutCostsInput {
+  id?: Maybe<ID_Input>;
+  title: String;
+  description: String;
+  author: UserCreateOneWithoutPostsInput;
+}
+
+export interface PostWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  title?: Maybe<String>;
+  title_not?: Maybe<String>;
+  title_in?: Maybe<String[] | String>;
+  title_not_in?: Maybe<String[] | String>;
+  title_lt?: Maybe<String>;
+  title_lte?: Maybe<String>;
+  title_gt?: Maybe<String>;
+  title_gte?: Maybe<String>;
+  title_contains?: Maybe<String>;
+  title_not_contains?: Maybe<String>;
+  title_starts_with?: Maybe<String>;
+  title_not_starts_with?: Maybe<String>;
+  title_ends_with?: Maybe<String>;
+  title_not_ends_with?: Maybe<String>;
+  description?: Maybe<String>;
+  description_not?: Maybe<String>;
+  description_in?: Maybe<String[] | String>;
+  description_not_in?: Maybe<String[] | String>;
+  description_lt?: Maybe<String>;
+  description_lte?: Maybe<String>;
+  description_gt?: Maybe<String>;
+  description_gte?: Maybe<String>;
+  description_contains?: Maybe<String>;
+  description_not_contains?: Maybe<String>;
+  description_starts_with?: Maybe<String>;
+  description_not_starts_with?: Maybe<String>;
+  description_ends_with?: Maybe<String>;
+  description_not_ends_with?: Maybe<String>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  author?: Maybe<UserWhereInput>;
+  costs_every?: Maybe<CostCalculateWhereInput>;
+  costs_some?: Maybe<CostCalculateWhereInput>;
+  costs_none?: Maybe<CostCalculateWhereInput>;
+  AND?: Maybe<PostWhereInput[] | PostWhereInput>;
+  OR?: Maybe<PostWhereInput[] | PostWhereInput>;
+  NOT?: Maybe<PostWhereInput[] | PostWhereInput>;
+}
+
+export interface UserCreateOneWithoutPostsInput {
+  create?: Maybe<UserCreateWithoutPostsInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
 }
 
 export interface CostCalculateWhereInput {
@@ -285,27 +392,14 @@ export interface CostCalculateWhereInput {
   NOT?: Maybe<CostCalculateWhereInput[] | CostCalculateWhereInput>;
 }
 
-export interface PostCreateWithoutCostsInput {
+export interface UserCreateWithoutPostsInput {
   id?: Maybe<ID_Input>;
-  title: String;
-  description: String;
-  author: UserCreateOneWithoutPostsInput;
-}
-
-export interface UserSubscriptionWhereInput {
-  mutation_in?: Maybe<MutationType[] | MutationType>;
-  updatedFields_contains?: Maybe<String>;
-  updatedFields_contains_every?: Maybe<String[] | String>;
-  updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<UserWhereInput>;
-  AND?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
-  OR?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
-  NOT?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
-}
-
-export interface UserCreateOneWithoutPostsInput {
-  create?: Maybe<UserCreateWithoutPostsInput>;
-  connect?: Maybe<UserWhereUniqueInput>;
+  name: String;
+  email: String;
+  password: String;
+  emailValidate?: Maybe<Boolean>;
+  validEmailToken?: Maybe<String>;
+  resetPasswordToken?: Maybe<String>;
 }
 
 export interface CostCalculateSubscriptionWhereInput {
@@ -325,11 +419,10 @@ export interface CostCalculateSubscriptionWhereInput {
   >;
 }
 
-export interface UserCreateWithoutPostsInput {
-  id?: Maybe<ID_Input>;
-  name: String;
-  email: String;
-  password: String;
+export interface CostCalculateUpdateInput {
+  title?: Maybe<String>;
+  price?: Maybe<Float>;
+  post?: Maybe<PostUpdateOneRequiredWithoutCostsInput>;
 }
 
 export interface PostUpdateManyDataInput {
@@ -337,10 +430,11 @@ export interface PostUpdateManyDataInput {
   description?: Maybe<String>;
 }
 
-export interface CostCalculateUpdateInput {
-  title?: Maybe<String>;
-  price?: Maybe<Float>;
-  post?: Maybe<PostUpdateOneRequiredWithoutCostsInput>;
+export interface PostUpdateOneRequiredWithoutCostsInput {
+  create?: Maybe<PostCreateWithoutCostsInput>;
+  update?: Maybe<PostUpdateWithoutCostsDataInput>;
+  upsert?: Maybe<PostUpsertWithoutCostsInput>;
+  connect?: Maybe<PostWhereUniqueInput>;
 }
 
 export interface PostScalarWhereInput {
@@ -399,19 +493,6 @@ export interface PostScalarWhereInput {
   NOT?: Maybe<PostScalarWhereInput[] | PostScalarWhereInput>;
 }
 
-export interface PostUpdateOneRequiredWithoutCostsInput {
-  create?: Maybe<PostCreateWithoutCostsInput>;
-  update?: Maybe<PostUpdateWithoutCostsDataInput>;
-  upsert?: Maybe<PostUpsertWithoutCostsInput>;
-  connect?: Maybe<PostWhereUniqueInput>;
-}
-
-export interface PostUpdateWithoutAuthorDataInput {
-  title?: Maybe<String>;
-  description?: Maybe<String>;
-  costs?: Maybe<CostCalculateUpdateManyWithoutPostInput>;
-}
-
 export interface PostUpdateWithoutCostsDataInput {
   title?: Maybe<String>;
   description?: Maybe<String>;
@@ -429,17 +510,18 @@ export interface UserUpdateOneRequiredWithoutPostsInput {
   connect?: Maybe<UserWhereUniqueInput>;
 }
 
-export interface UserUpdateInput {
-  name?: Maybe<String>;
-  email?: Maybe<String>;
-  password?: Maybe<String>;
-  posts?: Maybe<PostUpdateManyWithoutAuthorInput>;
+export interface PostUpdateWithWhereUniqueWithoutAuthorInput {
+  where: PostWhereUniqueInput;
+  data: PostUpdateWithoutAuthorDataInput;
 }
 
 export interface UserUpdateWithoutPostsDataInput {
   name?: Maybe<String>;
   email?: Maybe<String>;
   password?: Maybe<String>;
+  emailValidate?: Maybe<Boolean>;
+  validEmailToken?: Maybe<String>;
+  resetPasswordToken?: Maybe<String>;
 }
 
 export type UserWhereUniqueInput = AtLeastOne<{
@@ -447,17 +529,16 @@ export type UserWhereUniqueInput = AtLeastOne<{
   email?: Maybe<String>;
 }>;
 
-export interface CostCalculateUpdateManyWithWhereNestedInput {
-  where: CostCalculateScalarWhereInput;
-  data: CostCalculateUpdateManyDataInput;
+export interface PostUpdateManyMutationInput {
+  title?: Maybe<String>;
+  description?: Maybe<String>;
 }
 
-export interface UserCreateInput {
+export interface PostCreateWithoutAuthorInput {
   id?: Maybe<ID_Input>;
-  name: String;
-  email: String;
-  password: String;
-  posts?: Maybe<PostCreateManyWithoutAuthorInput>;
+  title: String;
+  description: String;
+  costs?: Maybe<CostCalculateCreateManyWithoutPostInput>;
 }
 
 export interface PostUpsertWithoutCostsInput {
@@ -465,12 +546,30 @@ export interface PostUpsertWithoutCostsInput {
   create: PostCreateWithoutCostsInput;
 }
 
-export interface CostCalculateUpdateManyDataInput {
+export interface UserCreateInput {
+  id?: Maybe<ID_Input>;
+  name: String;
+  email: String;
+  password: String;
+  emailValidate?: Maybe<Boolean>;
+  validEmailToken?: Maybe<String>;
+  resetPasswordToken?: Maybe<String>;
+  posts?: Maybe<PostCreateManyWithoutAuthorInput>;
+}
+
+export interface CostCalculateUpdateManyMutationInput {
   title?: Maybe<String>;
   price?: Maybe<Float>;
 }
 
-export interface CostCalculateUpdateManyMutationInput {
+export interface CostCalculateCreateInput {
+  id?: Maybe<ID_Input>;
+  title: String;
+  price: Float;
+  post: PostCreateOneWithoutCostsInput;
+}
+
+export interface CostCalculateUpdateManyDataInput {
   title?: Maybe<String>;
   price?: Maybe<Float>;
 }
@@ -532,6 +631,36 @@ export interface UserWhereInput {
   password_not_starts_with?: Maybe<String>;
   password_ends_with?: Maybe<String>;
   password_not_ends_with?: Maybe<String>;
+  emailValidate?: Maybe<Boolean>;
+  emailValidate_not?: Maybe<Boolean>;
+  validEmailToken?: Maybe<String>;
+  validEmailToken_not?: Maybe<String>;
+  validEmailToken_in?: Maybe<String[] | String>;
+  validEmailToken_not_in?: Maybe<String[] | String>;
+  validEmailToken_lt?: Maybe<String>;
+  validEmailToken_lte?: Maybe<String>;
+  validEmailToken_gt?: Maybe<String>;
+  validEmailToken_gte?: Maybe<String>;
+  validEmailToken_contains?: Maybe<String>;
+  validEmailToken_not_contains?: Maybe<String>;
+  validEmailToken_starts_with?: Maybe<String>;
+  validEmailToken_not_starts_with?: Maybe<String>;
+  validEmailToken_ends_with?: Maybe<String>;
+  validEmailToken_not_ends_with?: Maybe<String>;
+  resetPasswordToken?: Maybe<String>;
+  resetPasswordToken_not?: Maybe<String>;
+  resetPasswordToken_in?: Maybe<String[] | String>;
+  resetPasswordToken_not_in?: Maybe<String[] | String>;
+  resetPasswordToken_lt?: Maybe<String>;
+  resetPasswordToken_lte?: Maybe<String>;
+  resetPasswordToken_gt?: Maybe<String>;
+  resetPasswordToken_gte?: Maybe<String>;
+  resetPasswordToken_contains?: Maybe<String>;
+  resetPasswordToken_not_contains?: Maybe<String>;
+  resetPasswordToken_starts_with?: Maybe<String>;
+  resetPasswordToken_not_starts_with?: Maybe<String>;
+  resetPasswordToken_ends_with?: Maybe<String>;
+  resetPasswordToken_not_ends_with?: Maybe<String>;
   posts_every?: Maybe<PostWhereInput>;
   posts_some?: Maybe<PostWhereInput>;
   posts_none?: Maybe<PostWhereInput>;
@@ -540,112 +669,26 @@ export interface UserWhereInput {
   NOT?: Maybe<UserWhereInput[] | UserWhereInput>;
 }
 
-export interface PostWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  title?: Maybe<String>;
-  title_not?: Maybe<String>;
-  title_in?: Maybe<String[] | String>;
-  title_not_in?: Maybe<String[] | String>;
-  title_lt?: Maybe<String>;
-  title_lte?: Maybe<String>;
-  title_gt?: Maybe<String>;
-  title_gte?: Maybe<String>;
-  title_contains?: Maybe<String>;
-  title_not_contains?: Maybe<String>;
-  title_starts_with?: Maybe<String>;
-  title_not_starts_with?: Maybe<String>;
-  title_ends_with?: Maybe<String>;
-  title_not_ends_with?: Maybe<String>;
-  description?: Maybe<String>;
-  description_not?: Maybe<String>;
-  description_in?: Maybe<String[] | String>;
-  description_not_in?: Maybe<String[] | String>;
-  description_lt?: Maybe<String>;
-  description_lte?: Maybe<String>;
-  description_gt?: Maybe<String>;
-  description_gte?: Maybe<String>;
-  description_contains?: Maybe<String>;
-  description_not_contains?: Maybe<String>;
-  description_starts_with?: Maybe<String>;
-  description_not_starts_with?: Maybe<String>;
-  description_ends_with?: Maybe<String>;
-  description_not_ends_with?: Maybe<String>;
-  costs_every?: Maybe<CostCalculateWhereInput>;
-  costs_some?: Maybe<CostCalculateWhereInput>;
-  costs_none?: Maybe<CostCalculateWhereInput>;
-  author?: Maybe<UserWhereInput>;
-  createdAt?: Maybe<DateTimeInput>;
-  createdAt_not?: Maybe<DateTimeInput>;
-  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_lt?: Maybe<DateTimeInput>;
-  createdAt_lte?: Maybe<DateTimeInput>;
-  createdAt_gt?: Maybe<DateTimeInput>;
-  createdAt_gte?: Maybe<DateTimeInput>;
-  AND?: Maybe<PostWhereInput[] | PostWhereInput>;
-  OR?: Maybe<PostWhereInput[] | PostWhereInput>;
-  NOT?: Maybe<PostWhereInput[] | PostWhereInput>;
+export interface CostCalculateUpdateManyWithWhereNestedInput {
+  where: CostCalculateScalarWhereInput;
+  data: CostCalculateUpdateManyDataInput;
 }
 
 export interface UserUpdateManyMutationInput {
   name?: Maybe<String>;
   email?: Maybe<String>;
   password?: Maybe<String>;
+  emailValidate?: Maybe<Boolean>;
+  validEmailToken?: Maybe<String>;
+  resetPasswordToken?: Maybe<String>;
 }
 
-export interface CostCalculateScalarWhereInput {
+export interface PostCreateInput {
   id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  title?: Maybe<String>;
-  title_not?: Maybe<String>;
-  title_in?: Maybe<String[] | String>;
-  title_not_in?: Maybe<String[] | String>;
-  title_lt?: Maybe<String>;
-  title_lte?: Maybe<String>;
-  title_gt?: Maybe<String>;
-  title_gte?: Maybe<String>;
-  title_contains?: Maybe<String>;
-  title_not_contains?: Maybe<String>;
-  title_starts_with?: Maybe<String>;
-  title_not_starts_with?: Maybe<String>;
-  title_ends_with?: Maybe<String>;
-  title_not_ends_with?: Maybe<String>;
-  price?: Maybe<Float>;
-  price_not?: Maybe<Float>;
-  price_in?: Maybe<Float[] | Float>;
-  price_not_in?: Maybe<Float[] | Float>;
-  price_lt?: Maybe<Float>;
-  price_lte?: Maybe<Float>;
-  price_gt?: Maybe<Float>;
-  price_gte?: Maybe<Float>;
-  AND?: Maybe<CostCalculateScalarWhereInput[] | CostCalculateScalarWhereInput>;
-  OR?: Maybe<CostCalculateScalarWhereInput[] | CostCalculateScalarWhereInput>;
-  NOT?: Maybe<CostCalculateScalarWhereInput[] | CostCalculateScalarWhereInput>;
+  title: String;
+  description: String;
+  author: UserCreateOneWithoutPostsInput;
+  costs?: Maybe<CostCalculateCreateManyWithoutPostInput>;
 }
 
 export interface PostUpsertWithWhereUniqueWithoutAuthorInput {
@@ -654,12 +697,13 @@ export interface PostUpsertWithWhereUniqueWithoutAuthorInput {
   create: PostCreateWithoutAuthorInput;
 }
 
-export interface PostCreateInput {
-  id?: Maybe<ID_Input>;
-  title: String;
-  description: String;
-  costs?: Maybe<CostCalculateCreateManyWithoutPostInput>;
-  author: UserCreateOneWithoutPostsInput;
+export interface CostCalculateCreateManyWithoutPostInput {
+  create?: Maybe<
+    CostCalculateCreateWithoutPostInput[] | CostCalculateCreateWithoutPostInput
+  >;
+  connect?: Maybe<
+    CostCalculateWhereUniqueInput[] | CostCalculateWhereUniqueInput
+  >;
 }
 
 export interface PostUpdateManyWithoutAuthorInput {
@@ -682,13 +726,10 @@ export interface PostUpdateManyWithoutAuthorInput {
   >;
 }
 
-export interface CostCalculateCreateManyWithoutPostInput {
-  create?: Maybe<
-    CostCalculateCreateWithoutPostInput[] | CostCalculateCreateWithoutPostInput
-  >;
-  connect?: Maybe<
-    CostCalculateWhereUniqueInput[] | CostCalculateWhereUniqueInput
-  >;
+export interface CostCalculateCreateWithoutPostInput {
+  id?: Maybe<ID_Input>;
+  title: String;
+  price: Float;
 }
 
 export interface PostCreateManyWithoutAuthorInput {
@@ -696,15 +737,28 @@ export interface PostCreateManyWithoutAuthorInput {
   connect?: Maybe<PostWhereUniqueInput[] | PostWhereUniqueInput>;
 }
 
-export interface CostCalculateCreateWithoutPostInput {
-  id?: Maybe<ID_Input>;
-  title: String;
-  price: Float;
+export interface PostUpdateInput {
+  title?: Maybe<String>;
+  description?: Maybe<String>;
+  author?: Maybe<UserUpdateOneRequiredWithoutPostsInput>;
+  costs?: Maybe<CostCalculateUpdateManyWithoutPostInput>;
 }
 
-export interface PostUpdateManyWithWhereNestedInput {
-  where: PostScalarWhereInput;
-  data: PostUpdateManyDataInput;
+export interface UserSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<UserWhereInput>;
+  AND?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
+  OR?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
+  NOT?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
+}
+
+export interface CostCalculateUpsertWithWhereUniqueWithoutPostInput {
+  where: CostCalculateWhereUniqueInput;
+  update: CostCalculateUpdateWithoutPostDataInput;
+  create: CostCalculateCreateWithoutPostInput;
 }
 
 export interface CostCalculateUpdateWithoutPostDataInput {
@@ -748,18 +802,6 @@ export interface CostCalculateUpdateManyWithoutPostInput {
   >;
 }
 
-export interface PostUpdateInput {
-  title?: Maybe<String>;
-  description?: Maybe<String>;
-  costs?: Maybe<CostCalculateUpdateManyWithoutPostInput>;
-  author?: Maybe<UserUpdateOneRequiredWithoutPostsInput>;
-}
-
-export interface PostUpdateWithWhereUniqueWithoutAuthorInput {
-  where: PostWhereUniqueInput;
-  data: PostUpdateWithoutAuthorDataInput;
-}
-
 export interface PostSubscriptionWhereInput {
   mutation_in?: Maybe<MutationType[] | MutationType>;
   updatedFields_contains?: Maybe<String>;
@@ -771,16 +813,25 @@ export interface PostSubscriptionWhereInput {
   NOT?: Maybe<PostSubscriptionWhereInput[] | PostSubscriptionWhereInput>;
 }
 
-export interface PostUpdateManyMutationInput {
-  title?: Maybe<String>;
-  description?: Maybe<String>;
+export interface UserUpdateInput {
+  name?: Maybe<String>;
+  email?: Maybe<String>;
+  password?: Maybe<String>;
+  emailValidate?: Maybe<Boolean>;
+  validEmailToken?: Maybe<String>;
+  resetPasswordToken?: Maybe<String>;
+  posts?: Maybe<PostUpdateManyWithoutAuthorInput>;
 }
 
-export interface PostCreateWithoutAuthorInput {
-  id?: Maybe<ID_Input>;
-  title: String;
-  description: String;
-  costs?: Maybe<CostCalculateCreateManyWithoutPostInput>;
+export interface PostUpdateWithoutAuthorDataInput {
+  title?: Maybe<String>;
+  description?: Maybe<String>;
+  costs?: Maybe<CostCalculateUpdateManyWithoutPostInput>;
+}
+
+export interface PostUpdateManyWithWhereNestedInput {
+  where: PostScalarWhereInput;
+  data: PostUpdateManyDataInput;
 }
 
 export interface NodeNode {
@@ -803,32 +854,14 @@ export interface BatchPayloadSubscription
   count: () => Promise<AsyncIterator<Long>>;
 }
 
-export interface CostCalculateConnection {
-  pageInfo: PageInfo;
-  edges: CostCalculateEdge[];
-}
-
-export interface CostCalculateConnectionPromise
-  extends Promise<CostCalculateConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<CostCalculateEdge>>() => T;
-  aggregate: <T = AggregateCostCalculatePromise>() => T;
-}
-
-export interface CostCalculateConnectionSubscription
-  extends Promise<AsyncIterator<CostCalculateConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<CostCalculateEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateCostCalculateSubscription>() => T;
-}
-
 export interface UserPreviousValues {
   id: ID_Output;
   name: String;
   email: String;
   password: String;
+  emailValidate: Boolean;
+  validEmailToken?: String;
+  resetPasswordToken?: String;
 }
 
 export interface UserPreviousValuesPromise
@@ -838,6 +871,9 @@ export interface UserPreviousValuesPromise
   name: () => Promise<String>;
   email: () => Promise<String>;
   password: () => Promise<String>;
+  emailValidate: () => Promise<Boolean>;
+  validEmailToken: () => Promise<String>;
+  resetPasswordToken: () => Promise<String>;
 }
 
 export interface UserPreviousValuesSubscription
@@ -847,31 +883,25 @@ export interface UserPreviousValuesSubscription
   name: () => Promise<AsyncIterator<String>>;
   email: () => Promise<AsyncIterator<String>>;
   password: () => Promise<AsyncIterator<String>>;
+  emailValidate: () => Promise<AsyncIterator<Boolean>>;
+  validEmailToken: () => Promise<AsyncIterator<String>>;
+  resetPasswordToken: () => Promise<AsyncIterator<String>>;
 }
 
-export interface PostPreviousValues {
-  id: ID_Output;
-  title: String;
-  description: String;
-  createdAt: DateTimeOutput;
+export interface AggregateCostCalculate {
+  count: Int;
 }
 
-export interface PostPreviousValuesPromise
-  extends Promise<PostPreviousValues>,
+export interface AggregateCostCalculatePromise
+  extends Promise<AggregateCostCalculate>,
     Fragmentable {
-  id: () => Promise<ID_Output>;
-  title: () => Promise<String>;
-  description: () => Promise<String>;
-  createdAt: () => Promise<DateTimeOutput>;
+  count: () => Promise<Int>;
 }
 
-export interface PostPreviousValuesSubscription
-  extends Promise<AsyncIterator<PostPreviousValues>>,
+export interface AggregateCostCalculateSubscription
+  extends Promise<AsyncIterator<AggregateCostCalculate>>,
     Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  title: () => Promise<AsyncIterator<String>>;
-  description: () => Promise<AsyncIterator<String>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface CostCalculatePreviousValues {
@@ -894,6 +924,25 @@ export interface CostCalculatePreviousValuesSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   title: () => Promise<AsyncIterator<String>>;
   price: () => Promise<AsyncIterator<Float>>;
+}
+
+export interface CostCalculateEdge {
+  node: CostCalculate;
+  cursor: String;
+}
+
+export interface CostCalculateEdgePromise
+  extends Promise<CostCalculateEdge>,
+    Fragmentable {
+  node: <T = CostCalculatePromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface CostCalculateEdgeSubscription
+  extends Promise<AsyncIterator<CostCalculateEdge>>,
+    Fragmentable {
+  node: <T = CostCalculateSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface PageInfo {
@@ -919,6 +968,77 @@ export interface PageInfoSubscription
   endCursor: () => Promise<AsyncIterator<String>>;
 }
 
+export interface User {
+  id: ID_Output;
+  name: String;
+  email: String;
+  password: String;
+  emailValidate: Boolean;
+  validEmailToken?: String;
+  resetPasswordToken?: String;
+}
+
+export interface UserPromise extends Promise<User>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  email: () => Promise<String>;
+  password: () => Promise<String>;
+  emailValidate: () => Promise<Boolean>;
+  validEmailToken: () => Promise<String>;
+  resetPasswordToken: () => Promise<String>;
+  posts: <T = FragmentableArray<Post>>(args?: {
+    where?: PostWhereInput;
+    orderBy?: PostOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+}
+
+export interface UserSubscription
+  extends Promise<AsyncIterator<User>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  email: () => Promise<AsyncIterator<String>>;
+  password: () => Promise<AsyncIterator<String>>;
+  emailValidate: () => Promise<AsyncIterator<Boolean>>;
+  validEmailToken: () => Promise<AsyncIterator<String>>;
+  resetPasswordToken: () => Promise<AsyncIterator<String>>;
+  posts: <T = Promise<AsyncIterator<PostSubscription>>>(args?: {
+    where?: PostWhereInput;
+    orderBy?: PostOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+}
+
+export interface UserNullablePromise
+  extends Promise<User | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  email: () => Promise<String>;
+  password: () => Promise<String>;
+  emailValidate: () => Promise<Boolean>;
+  validEmailToken: () => Promise<String>;
+  resetPasswordToken: () => Promise<String>;
+  posts: <T = FragmentableArray<Post>>(args?: {
+    where?: PostWhereInput;
+    orderBy?: PostOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+}
+
 export interface AggregateUser {
   count: Int;
 }
@@ -935,102 +1055,60 @@ export interface AggregateUserSubscription
   count: () => Promise<AsyncIterator<Int>>;
 }
 
-export interface PostSubscriptionPayload {
-  mutation: MutationType;
-  node: Post;
-  updatedFields: String[];
-  previousValues: PostPreviousValues;
+export interface CostCalculateConnection {
+  pageInfo: PageInfo;
+  edges: CostCalculateEdge[];
 }
 
-export interface PostSubscriptionPayloadPromise
-  extends Promise<PostSubscriptionPayload>,
+export interface CostCalculateConnectionPromise
+  extends Promise<CostCalculateConnection>,
     Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = PostPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = PostPreviousValuesPromise>() => T;
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<CostCalculateEdge>>() => T;
+  aggregate: <T = AggregateCostCalculatePromise>() => T;
 }
 
-export interface PostSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<PostSubscriptionPayload>>,
+export interface CostCalculateConnectionSubscription
+  extends Promise<AsyncIterator<CostCalculateConnection>>,
     Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = PostSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = PostPreviousValuesSubscription>() => T;
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<CostCalculateEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateCostCalculateSubscription>() => T;
 }
 
-export interface UserSubscriptionPayload {
-  mutation: MutationType;
-  node: User;
-  updatedFields: String[];
-  previousValues: UserPreviousValues;
+export interface UserConnection {
+  pageInfo: PageInfo;
+  edges: UserEdge[];
 }
 
-export interface UserSubscriptionPayloadPromise
-  extends Promise<UserSubscriptionPayload>,
+export interface UserConnectionPromise
+  extends Promise<UserConnection>,
     Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = UserPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = UserPreviousValuesPromise>() => T;
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<UserEdge>>() => T;
+  aggregate: <T = AggregateUserPromise>() => T;
 }
 
-export interface UserSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<UserSubscriptionPayload>>,
+export interface UserConnectionSubscription
+  extends Promise<AsyncIterator<UserConnection>>,
     Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = UserSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = UserPreviousValuesSubscription>() => T;
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateUserSubscription>() => T;
 }
 
-export interface UserEdge {
-  node: User;
-  cursor: String;
-}
-
-export interface UserEdgePromise extends Promise<UserEdge>, Fragmentable {
-  node: <T = UserPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface UserEdgeSubscription
-  extends Promise<AsyncIterator<UserEdge>>,
-    Fragmentable {
-  node: <T = UserSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface PostEdge {
-  node: Post;
-  cursor: String;
-}
-
-export interface PostEdgePromise extends Promise<PostEdge>, Fragmentable {
-  node: <T = PostPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface PostEdgeSubscription
-  extends Promise<AsyncIterator<PostEdge>>,
-    Fragmentable {
-  node: <T = PostSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface AggregateCostCalculate {
+export interface AggregatePost {
   count: Int;
 }
 
-export interface AggregateCostCalculatePromise
-  extends Promise<AggregateCostCalculate>,
+export interface AggregatePostPromise
+  extends Promise<AggregatePost>,
     Fragmentable {
   count: () => Promise<Int>;
 }
 
-export interface AggregateCostCalculateSubscription
-  extends Promise<AsyncIterator<AggregateCostCalculate>>,
+export interface AggregatePostSubscription
+  extends Promise<AsyncIterator<AggregatePost>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
 }
@@ -1104,6 +1182,8 @@ export interface PostPromise extends Promise<Post>, Fragmentable {
   id: () => Promise<ID_Output>;
   title: () => Promise<String>;
   description: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  author: <T = UserPromise>() => T;
   costs: <T = FragmentableArray<CostCalculate>>(args?: {
     where?: CostCalculateWhereInput;
     orderBy?: CostCalculateOrderByInput;
@@ -1113,8 +1193,6 @@ export interface PostPromise extends Promise<Post>, Fragmentable {
     first?: Int;
     last?: Int;
   }) => T;
-  author: <T = UserPromise>() => T;
-  createdAt: () => Promise<DateTimeOutput>;
 }
 
 export interface PostSubscription
@@ -1123,6 +1201,8 @@ export interface PostSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   title: () => Promise<AsyncIterator<String>>;
   description: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  author: <T = UserSubscription>() => T;
   costs: <T = Promise<AsyncIterator<CostCalculateSubscription>>>(args?: {
     where?: CostCalculateWhereInput;
     orderBy?: CostCalculateOrderByInput;
@@ -1132,8 +1212,6 @@ export interface PostSubscription
     first?: Int;
     last?: Int;
   }) => T;
-  author: <T = UserSubscription>() => T;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface PostNullablePromise
@@ -1142,6 +1220,8 @@ export interface PostNullablePromise
   id: () => Promise<ID_Output>;
   title: () => Promise<String>;
   description: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  author: <T = UserPromise>() => T;
   costs: <T = FragmentableArray<CostCalculate>>(args?: {
     where?: CostCalculateWhereInput;
     orderBy?: CostCalculateOrderByInput;
@@ -1151,86 +1231,115 @@ export interface PostNullablePromise
     first?: Int;
     last?: Int;
   }) => T;
-  author: <T = UserPromise>() => T;
-  createdAt: () => Promise<DateTimeOutput>;
 }
 
-export interface User {
-  id: ID_Output;
-  name: String;
-  email: String;
-  password: String;
+export interface PostSubscriptionPayload {
+  mutation: MutationType;
+  node: Post;
+  updatedFields: String[];
+  previousValues: PostPreviousValues;
 }
 
-export interface UserPromise extends Promise<User>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
-  email: () => Promise<String>;
-  password: () => Promise<String>;
-  posts: <T = FragmentableArray<Post>>(args?: {
-    where?: PostWhereInput;
-    orderBy?: PostOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-}
-
-export interface UserSubscription
-  extends Promise<AsyncIterator<User>>,
+export interface PostSubscriptionPayloadPromise
+  extends Promise<PostSubscriptionPayload>,
     Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  name: () => Promise<AsyncIterator<String>>;
-  email: () => Promise<AsyncIterator<String>>;
-  password: () => Promise<AsyncIterator<String>>;
-  posts: <T = Promise<AsyncIterator<PostSubscription>>>(args?: {
-    where?: PostWhereInput;
-    orderBy?: PostOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
+  mutation: () => Promise<MutationType>;
+  node: <T = PostPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = PostPreviousValuesPromise>() => T;
 }
 
-export interface UserNullablePromise
-  extends Promise<User | null>,
+export interface PostSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<PostSubscriptionPayload>>,
     Fragmentable {
-  id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
-  email: () => Promise<String>;
-  password: () => Promise<String>;
-  posts: <T = FragmentableArray<Post>>(args?: {
-    where?: PostWhereInput;
-    orderBy?: PostOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = PostSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = PostPreviousValuesSubscription>() => T;
 }
 
-export interface CostCalculateEdge {
-  node: CostCalculate;
+export interface PostEdge {
+  node: Post;
   cursor: String;
 }
 
-export interface CostCalculateEdgePromise
-  extends Promise<CostCalculateEdge>,
-    Fragmentable {
-  node: <T = CostCalculatePromise>() => T;
+export interface PostEdgePromise extends Promise<PostEdge>, Fragmentable {
+  node: <T = PostPromise>() => T;
   cursor: () => Promise<String>;
 }
 
-export interface CostCalculateEdgeSubscription
-  extends Promise<AsyncIterator<CostCalculateEdge>>,
+export interface PostEdgeSubscription
+  extends Promise<AsyncIterator<PostEdge>>,
     Fragmentable {
-  node: <T = CostCalculateSubscription>() => T;
+  node: <T = PostSubscription>() => T;
   cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface PostPreviousValues {
+  id: ID_Output;
+  title: String;
+  description: String;
+  createdAt: DateTimeOutput;
+}
+
+export interface PostPreviousValuesPromise
+  extends Promise<PostPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  title: () => Promise<String>;
+  description: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+}
+
+export interface PostPreviousValuesSubscription
+  extends Promise<AsyncIterator<PostPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  title: () => Promise<AsyncIterator<String>>;
+  description: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface UserEdge {
+  node: User;
+  cursor: String;
+}
+
+export interface UserEdgePromise extends Promise<UserEdge>, Fragmentable {
+  node: <T = UserPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface UserEdgeSubscription
+  extends Promise<AsyncIterator<UserEdge>>,
+    Fragmentable {
+  node: <T = UserSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface UserSubscriptionPayload {
+  mutation: MutationType;
+  node: User;
+  updatedFields: String[];
+  previousValues: UserPreviousValues;
+}
+
+export interface UserSubscriptionPayloadPromise
+  extends Promise<UserSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = UserPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = UserPreviousValuesPromise>() => T;
+}
+
+export interface UserSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<UserSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = UserSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = UserPreviousValuesSubscription>() => T;
 }
 
 export interface PostConnection {
@@ -1254,55 +1363,6 @@ export interface PostConnectionSubscription
   aggregate: <T = AggregatePostSubscription>() => T;
 }
 
-export interface AggregatePost {
-  count: Int;
-}
-
-export interface AggregatePostPromise
-  extends Promise<AggregatePost>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregatePostSubscription
-  extends Promise<AsyncIterator<AggregatePost>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface UserConnection {
-  pageInfo: PageInfo;
-  edges: UserEdge[];
-}
-
-export interface UserConnectionPromise
-  extends Promise<UserConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<UserEdge>>() => T;
-  aggregate: <T = AggregateUserPromise>() => T;
-}
-
-export interface UserConnectionSubscription
-  extends Promise<AsyncIterator<UserConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateUserSubscription>() => T;
-}
-
-/*
-The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](https://en.wikipedia.org/wiki/IEEE_floating_point). 
-*/
-export type Float = number;
-
-export type Long = string;
-
-/*
-The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
-*/
-export type String = string;
-
 /*
 DateTime scalar input type, allowing Date
 */
@@ -1313,16 +1373,28 @@ DateTime scalar output type, which is always a string
 */
 export type DateTimeOutput = string;
 
-/*
-The `Boolean` scalar type represents `true` or `false`.
-*/
-export type Boolean = boolean;
+export type Long = string;
 
 /*
 The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
 */
 export type ID_Input = string | number;
 export type ID_Output = string;
+
+/*
+The `Boolean` scalar type represents `true` or `false`.
+*/
+export type Boolean = boolean;
+
+/*
+The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
+*/
+export type String = string;
+
+/*
+The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](https://en.wikipedia.org/wiki/IEEE_floating_point). 
+*/
+export type Float = number;
 
 /*
 The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 

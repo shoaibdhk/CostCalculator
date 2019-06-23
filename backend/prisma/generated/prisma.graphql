@@ -267,9 +267,9 @@ type Post {
   id: ID!
   title: String!
   description: String!
-  costs(where: CostCalculateWhereInput, orderBy: CostCalculateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CostCalculate!]
-  author: User!
   createdAt: DateTime!
+  author: User!
+  costs(where: CostCalculateWhereInput, orderBy: CostCalculateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CostCalculate!]
 }
 
 type PostConnection {
@@ -282,8 +282,8 @@ input PostCreateInput {
   id: ID
   title: String!
   description: String!
-  costs: CostCalculateCreateManyWithoutPostInput
   author: UserCreateOneWithoutPostsInput!
+  costs: CostCalculateCreateManyWithoutPostInput
 }
 
 input PostCreateManyWithoutAuthorInput {
@@ -410,8 +410,8 @@ input PostSubscriptionWhereInput {
 input PostUpdateInput {
   title: String
   description: String
-  costs: CostCalculateUpdateManyWithoutPostInput
   author: UserUpdateOneRequiredWithoutPostsInput
+  costs: CostCalculateUpdateManyWithoutPostInput
 }
 
 input PostUpdateManyDataInput {
@@ -519,10 +519,6 @@ input PostWhereInput {
   description_not_starts_with: String
   description_ends_with: String
   description_not_ends_with: String
-  costs_every: CostCalculateWhereInput
-  costs_some: CostCalculateWhereInput
-  costs_none: CostCalculateWhereInput
-  author: UserWhereInput
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -531,6 +527,10 @@ input PostWhereInput {
   createdAt_lte: DateTime
   createdAt_gt: DateTime
   createdAt_gte: DateTime
+  author: UserWhereInput
+  costs_every: CostCalculateWhereInput
+  costs_some: CostCalculateWhereInput
+  costs_none: CostCalculateWhereInput
   AND: [PostWhereInput!]
   OR: [PostWhereInput!]
   NOT: [PostWhereInput!]
@@ -564,6 +564,9 @@ type User {
   name: String!
   email: String!
   password: String!
+  emailValidate: Boolean!
+  validEmailToken: String
+  resetPasswordToken: String
   posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post!]
 }
 
@@ -578,6 +581,9 @@ input UserCreateInput {
   name: String!
   email: String!
   password: String!
+  emailValidate: Boolean
+  validEmailToken: String
+  resetPasswordToken: String
   posts: PostCreateManyWithoutAuthorInput
 }
 
@@ -591,6 +597,9 @@ input UserCreateWithoutPostsInput {
   name: String!
   email: String!
   password: String!
+  emailValidate: Boolean
+  validEmailToken: String
+  resetPasswordToken: String
 }
 
 type UserEdge {
@@ -607,6 +616,12 @@ enum UserOrderByInput {
   email_DESC
   password_ASC
   password_DESC
+  emailValidate_ASC
+  emailValidate_DESC
+  validEmailToken_ASC
+  validEmailToken_DESC
+  resetPasswordToken_ASC
+  resetPasswordToken_DESC
 }
 
 type UserPreviousValues {
@@ -614,6 +629,9 @@ type UserPreviousValues {
   name: String!
   email: String!
   password: String!
+  emailValidate: Boolean!
+  validEmailToken: String
+  resetPasswordToken: String
 }
 
 type UserSubscriptionPayload {
@@ -638,6 +656,9 @@ input UserUpdateInput {
   name: String
   email: String
   password: String
+  emailValidate: Boolean
+  validEmailToken: String
+  resetPasswordToken: String
   posts: PostUpdateManyWithoutAuthorInput
 }
 
@@ -645,6 +666,9 @@ input UserUpdateManyMutationInput {
   name: String
   email: String
   password: String
+  emailValidate: Boolean
+  validEmailToken: String
+  resetPasswordToken: String
 }
 
 input UserUpdateOneRequiredWithoutPostsInput {
@@ -658,6 +682,9 @@ input UserUpdateWithoutPostsDataInput {
   name: String
   email: String
   password: String
+  emailValidate: Boolean
+  validEmailToken: String
+  resetPasswordToken: String
 }
 
 input UserUpsertWithoutPostsInput {
@@ -722,6 +749,36 @@ input UserWhereInput {
   password_not_starts_with: String
   password_ends_with: String
   password_not_ends_with: String
+  emailValidate: Boolean
+  emailValidate_not: Boolean
+  validEmailToken: String
+  validEmailToken_not: String
+  validEmailToken_in: [String!]
+  validEmailToken_not_in: [String!]
+  validEmailToken_lt: String
+  validEmailToken_lte: String
+  validEmailToken_gt: String
+  validEmailToken_gte: String
+  validEmailToken_contains: String
+  validEmailToken_not_contains: String
+  validEmailToken_starts_with: String
+  validEmailToken_not_starts_with: String
+  validEmailToken_ends_with: String
+  validEmailToken_not_ends_with: String
+  resetPasswordToken: String
+  resetPasswordToken_not: String
+  resetPasswordToken_in: [String!]
+  resetPasswordToken_not_in: [String!]
+  resetPasswordToken_lt: String
+  resetPasswordToken_lte: String
+  resetPasswordToken_gt: String
+  resetPasswordToken_gte: String
+  resetPasswordToken_contains: String
+  resetPasswordToken_not_contains: String
+  resetPasswordToken_starts_with: String
+  resetPasswordToken_not_starts_with: String
+  resetPasswordToken_ends_with: String
+  resetPasswordToken_not_ends_with: String
   posts_every: PostWhereInput
   posts_some: PostWhereInput
   posts_none: PostWhereInput

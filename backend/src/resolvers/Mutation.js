@@ -1,6 +1,7 @@
 const { hash, compare } = require('bcryptjs')
 const Joi = require('@hapi/joi')
 const { sign } = require('jsonwebtoken')
+const { randomBytes } = require('crypto')
 
 const signUpSchema = Joi.object().keys({
   name: Joi.string()
