@@ -21,6 +21,8 @@ type Mutation {
   signup(name: String!, email: String!, password: String!): User!
   signin(email: String!, password: String!): User
   signout: Boolean!
+  resetPassword(userId: ID!, password: String!, confirmPassword: String!): Boolean!
+
   # Post
   createPost(title: String!, description: String!, costs: [Costcalculate!]!): Post
   updatePost(title: String, description: String, costs: [Costcalculate!], postId: ID!): Post

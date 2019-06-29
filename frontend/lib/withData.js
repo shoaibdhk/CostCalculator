@@ -49,14 +49,6 @@ const httpLinkWithAuthToken = headers =>
 const client = ({ headers }) =>
   new ApolloClient({
     link: ApolloLink.from([
-      onError(({ graphQLErrors, networkError }) => {
-        if (graphQLErrors) {
-          sendToLoggingService(graphQLErrors)
-        }
-        if (networkError) {
-          logoutUser()
-        }
-      }),
       httpLinkWithAuthToken(headers)
     ]),
     cache: new InMemoryCache()

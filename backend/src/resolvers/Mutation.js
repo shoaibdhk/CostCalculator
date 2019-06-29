@@ -1,46 +1,5 @@
-const { hash, compare } = require('bcryptjs')
 const Joi = require('@hapi/joi')
-const { sign } = require('jsonwebtoken')
-const { randomBytes } = require('crypto')
-
-const signUpSchema = Joi.object().keys({
-  name: Joi.string()
-    .required()
-    .label('Name'),
-  email: Joi.string()
-    .email()
-    .required()
-    .label('Invalid')
-    .options({
-      language: {
-        string: {
-          email: 'email address'
-        }
-      }
-    }),
-  password: Joi.string()
-    .min(6)
-    .max(14)
-    .required()
-    .label('Password')
-})
-const signInSchema = Joi.object().keys({
-  email: Joi.string()
-    .email()
-    .required()
-    .label('Invalid')
-    .options({
-      language: {
-        string: {
-          email: 'email address'
-        }
-      }
-    }),
-  password: Joi.string()
-    .min(6)
-    .max(14)
-    .required()
-})
+const auth = require('./Auth')
 
 const createPostSchema = Joi.object().keys({
   title: Joi.string().required(),
@@ -66,52 +25,7 @@ const updatePostSchema = Joi.object().keys({
   postId: Joi.string()
 })
 const Mutation = {
-  async signup(parent, args, { prisma, response }, info) {
-    const { error } = Joi.validate({ ...args }, signUpSchema, { abortEarly: false })
-
-    if (!error) {
-      const password = await hash(args.password, 10)
-      const user = await prisma.createUser({ ...args, password })
-      let token = sign({ userId: user.id }, process.env.APP_SECRET)
-      await response.cookie('token', token, {
-        httpOnly: true,
-        maxAge: 1000 * 60 * 60 * 24 * 365
-      })
-      return user
-    }
-
-    const errors = {}
-    error.details.map(err => (errors[err.path[0]] = err.message.replace(/"/g, '')))
-    throw new Error(JSON.stringify(errors))
-  },
-  async signin(parent, args, { prisma, response }, info) {
-    const { error } = Joi.validate({ ...args }, signInSchema, { abortEarly: false })
-
-    if (!error) {
-      const user = await prisma.user({ email: args.email })
-
-      let isMatched, token
-      if (user) {
-        isMatched = await compare(args.password, user.password)
-      } else throw new Error(JSON.stringify({ email: 'No user found' }))
-      if (isMatched) {
-        token = sign({ userId: user.id }, process.env.APP_SECRET)
-        await response.cookie('token', token, {
-          httpOnly: true,
-          maxAge: 1000 * 60 * 60 * 24 * 365
-        })
-        return user
-      } else throw new Error(JSON.stringify({ password: `Password didn't match` }))
-    }
-
-    const errors = {}
-    error.details.map(err => (errors[err.path[0]] = err.message.replace(/"/g, '')))
-    throw new Error(JSON.stringify(errors))
-  },
-  signout(parent, args, { response }, info) {
-    response.clearCookie('token')
-    return true
-  },
+  ...auth,
 
   async createPost(parent, args, { request, prisma }, info) {
     if (!request.userId) throw new Error('No user found')

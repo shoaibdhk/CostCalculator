@@ -3,10 +3,13 @@ type User {
   name: String!
   email: String! @unique
   password: String!
-  emailValidate: Boolean! @default(value: false)
+  emailValidated: Boolean! @default(value: false)
   validEmailToken: String
   resetPasswordToken: String
-  posts: [Post!] @relation( onDelete: CASCADE)
+  resetPasswordExpires: Float
+  posts: [Post!] @relation(onDelete: CASCADE)
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
 }
 
 type Post {
@@ -14,7 +17,7 @@ type Post {
   title: String!
   description: String!
   createdAt: DateTime! @createdAt
-  author: User! @relation( onDelete: SET_NULL)
+  author: User! @relation(onDelete: SET_NULL)
   costs: [CostCalculate!] @relation(onDelete: CASCADE)
 }
 

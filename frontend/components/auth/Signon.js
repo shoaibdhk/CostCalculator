@@ -49,9 +49,13 @@ class Signon extends Component {
                   <form
                     onSubmit={async e => {
                       e.preventDefault()
-                      const signedUp = await singup()
-                      if (signedUp) {
-                        Router.push('/')
+                      try {
+                        const signedUp = await singup()
+                        if (signedUp) {
+                          Router.push('/')
+                        }
+                      } catch (error) {
+                        process.env.NODE_ENV === 'production' ? null : console.error(error)
                       }
                     }}
                     method='post'>
@@ -98,9 +102,13 @@ class Signon extends Component {
                     method='post'
                     onSubmit={async e => {
                       e.preventDefault()
-                      const signedIn = await signin()
-                      if (signedIn) {
-                        Router.push('/')
+                      try {
+                        const signedIn = await signin()
+                        if (signedIn) {
+                          Router.push('/')
+                        }
+                      } catch (error) {
+                        process.env.NODE_ENV === 'production' ? null : console.error(error)
                       }
                     }}>
                     <h1>Sign in</h1>
