@@ -6,7 +6,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon -e js,graphql",
-    "start": "node index.js"
+    "start": "node index.js",
+    "token": "prisma token -e .env"
   },
   "dependencies": {
     "@hapi/joi": "^15.0.3",
