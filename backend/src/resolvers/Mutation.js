@@ -75,8 +75,7 @@ const Mutation = {
       let token = sign({ userId: user.id }, process.env.APP_SECRET);
       await response.cookie('token', token, {
         httpOnly: true,
-        maxAge: 1000 * 60 * 60 * 24 * 365,
-        secure: true
+        maxAge: 1000 * 60 * 60 * 24 * 365
       });
       return user;
     }
@@ -99,8 +98,7 @@ const Mutation = {
         token = sign({ userId: user.id }, process.env.APP_SECRET);
         await response.cookie('token', token, {
           httpOnly: true,
-          maxAge: 1000 * 60 * 60 * 24 * 365,
-          secure: true
+          maxAge: 1000 * 60 * 60 * 24 * 365
         });
         return user;
       } else throw new Error(JSON.stringify({ password: `Password didn't match` }));
