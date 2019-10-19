@@ -1,16 +1,16 @@
-import React from 'react'
-import Link from 'next/link'
-import Router from 'next/router'
-import styled from 'styled-components'
-import gql from 'graphql-tag'
-import { Mutation } from 'react-apollo'
-import User, { CURRENT_USER_QUERY } from '../auth/User'
+import React from 'react';
+import Link from 'next/link';
+import Router from 'next/router';
+import styled from 'styled-components';
+import gql from 'graphql-tag';
+import { Mutation } from 'react-apollo';
+import User, { CURRENT_USER_QUERY } from '../auth/User';
 
 const LOGOUT = gql`
   mutation LOGOUT {
     signout
   }
-`
+`;
 const Navbar = styled.nav`
   margin-top: 20px;
   padding: 0;
@@ -27,7 +27,7 @@ const Navbar = styled.nav`
   li:hover {
     color: rgba(231, 76, 60, 1);
   }
-`
+`;
 const NavBar = () => {
   return (
     <User>
@@ -45,24 +45,23 @@ const NavBar = () => {
                     return (
                       <li
                         onClick={async () => {
-                          await logout()
-                          Router.push('/signon')
-                        }}
-                      >
+                          await logout();
+                          Router.push('/signon');
+                        }}>
                         Logout
                       </li>
-                    )
+                    );
                   }}
                 </Mutation>
               </Link>
             </Navbar>
-          )
+          );
         } else {
-          return null
+          return null;
         }
       }}
     </User>
-  )
-}
+  );
+};
 
-export default NavBar
+export default NavBar;
