@@ -22,10 +22,6 @@ import Dashboard from '../components/layout/Dashboard';
 //   }
 // }
 
-const Home = props => (
-  <PleaseSignIn>
-    <Dashboard />
-  </PleaseSignIn>
-);
+const Home = props => <Dashboard />;
 
 export default Home;
