@@ -1,13 +1,13 @@
-import styled from 'styled-components'
-import Button from '../styled/Button'
-import formatMoney from '../../lib/formatMoney'
-import { Mutation } from 'react-apollo'
-import Router from 'next/router'
-import gql from 'graphql-tag'
-import { Spinner, Col, Row, Form, FormGroup, Input, FormFeedback, Container } from 'reactstrap'
-import { ALL_POSTS_QUERY } from '../layout/Dashboard'
-import catchErrors from '../../lib/catchError'
-import Swal from 'sweetalert2'
+import styled from 'styled-components';
+import Button from '../styled/Button';
+import formatMoney from '../../lib/formatMoney';
+import { Mutation } from 'react-apollo';
+import Router from 'next/router';
+import gql from 'graphql-tag';
+import { Spinner, Col, Row, Form, FormGroup, Input, FormFeedback, Container } from 'reactstrap';
+import { ALL_POSTS_QUERY } from '../layout/Dashboard';
+import catchErrors from '../../lib/catchError';
+import Swal from 'sweetalert2';
 
 const Wrapper = styled.div`
   background: ${props => props.theme.cardColor};
@@ -77,7 +77,7 @@ const Wrapper = styled.div`
       transform: rotate(-45deg);
     }
   }
-`
+`;
 
 const CREATE_POST = gql`
   mutation CREATE_POST($title: String!, $description: String!, $costs: [Costcalculate!]!) {
@@ -89,7 +89,7 @@ const CREATE_POST = gql`
       }
     }
   }
-`
+`;
 
 class CreatePost extends React.Component {
   state = {
@@ -97,19 +97,19 @@ class CreatePost extends React.Component {
     description: '',
     costs: [{ title: '', price: undefined }],
     total: 0
-  }
+  };
   onChange = e => {
-    return this.setState({ [e.target.name]: e.target.value })
-  }
+    return this.setState({ [e.target.name]: e.target.value });
+  };
 
   render() {
-    let { title, description, costs, total } = this.state
+    let { title, description, costs, total } = this.state;
     return (
       <Wrapper>
         <h1>Create A New Post</h1>
         <Mutation mutation={CREATE_POST} variables={this.state} refetchQueries={[{ query: ALL_POSTS_QUERY }]}>
           {(createPost, { data, loading, error }) => {
-            let errorMessage = catchErrors(error)
+            let errorMessage = catchErrors(error);
             return (
               <Container>
                 <Row>
@@ -117,16 +117,16 @@ class CreatePost extends React.Component {
                     <Form
                       method='post'
                       onSubmit={async e => {
-                        e.preventDefault()
-                        let costs = this.state.costs
+                        e.preventDefault();
+                        let costs = this.state.costs;
                         costs.map(cost => {
                           if (cost.price === undefined) {
-                            cost.price = 0
+                            cost.price = 0;
                           }
-                        })
-                        this.setState({ costs })
-                        const post = await createPost()
-                        if (post) return Router.push('/')
+                        });
+                        this.setState({ costs });
+                        const post = await createPost();
+                        if (post) return Router.push('/');
                       }}>
                       <FormGroup className='post-input'>
                         <Input type='text' value={title} placeholder='Please enter you title' name='title' onChange={this.onChange} invalid={errorMessage && errorMessage.title ? true : false} />
@@ -157,8 +157,8 @@ class CreatePost extends React.Component {
                                   invalid={errorMessage && errorMessage.costs && cost.title === '' && errorMessage.costs.includes('title') ? true : false}
                                   name={`costs[${index}].title`}
                                   onChange={e => {
-                                    costs[index].title = e.target.value
-                                    return this.setState({ costs })
+                                    costs[index].title = e.target.value;
+                                    return this.setState({ costs });
                                   }}
                                 />
                                 {errorMessage && errorMessage.costs && cost.title === '' && errorMessage.costs.includes('title') && <FormFeedback>{errorMessage.costs}</FormFeedback>}
@@ -173,17 +173,17 @@ class CreatePost extends React.Component {
                                   name={`costs[${index}].price`}
                                   invalid={errorMessage && errorMessage.costs && cost.price === 0 && errorMessage.costs.includes('price') ? true : false}
                                   onChange={e => {
-                                    costs[index].price = parseFloat(e.target.value) ? parseFloat(e.target.value) : undefined
-                                    return this.setState({ costs })
+                                    costs[index].price = parseFloat(e.target.value) ? parseFloat(e.target.value) : undefined;
+                                    return this.setState({ costs });
                                   }}
                                   onBlur={() => {
-                                    let total = this.state.total
-                                    total = 0
+                                    let total = this.state.total;
+                                    total = 0;
                                     costs.map(cost => {
-                                      if (cost.price) total += cost.price
-                                    })
+                                      if (cost.price) total += cost.price;
+                                    });
 
-                                    this.setState({ total })
+                                    this.setState({ total });
                                   }}
                                 />
                                 {errorMessage && errorMessage.costs && cost.price === 0 && errorMessage.costs.includes('price') && <FormFeedback>{errorMessage.costs}</FormFeedback>}
@@ -194,37 +194,37 @@ class CreatePost extends React.Component {
                                 <button
                                   className='close-button'
                                   onClick={e => {
-                                    e.preventDefault()
-                                    costs.splice(index, 1)
-                                    let total = this.state.total
-                                    total = 0
+                                    e.preventDefault();
+                                    costs.splice(index, 1);
+                                    let total = this.state.total;
+                                    total = 0;
                                     costs.map(cost => {
-                                      if (cost.price) total += cost.price
-                                    })
+                                      if (cost.price) total += cost.price;
+                                    });
 
-                                    return this.setState({ costs, total })
+                                    return this.setState({ costs, total });
                                   }}
                                 />
                               )}
                             </Col>
                           </Row>
-                        )
+                        );
                       })}
                       <Button
                         className='mt-4'
                         onClick={e => {
-                          e.preventDefault()
+                          e.preventDefault();
                           let costs = this.state.costs,
-                            isUndefined
+                            isUndefined;
 
                           costs.map(cost => {
                             if (!cost.price && !cost.title) {
-                              isUndefined = true
+                              isUndefined = true;
                             }
-                          })
+                          });
                           if (!isUndefined) {
-                            errorMessage = {}
-                            costs.push({ title: '', price: undefined })
+                            errorMessage = {};
+                            costs.push({ title: '', price: undefined });
                           } else {
                             Swal.fire({
                               position: 'top-end',
@@ -233,9 +233,9 @@ class CreatePost extends React.Component {
                               showConfirmButton: false,
                               timer: 1500,
                               background: '#17141d'
-                            })
+                            });
                           }
-                          this.setState({ costs })
+                          this.setState({ costs });
                         }}>
                         Add another cost
                       </Button>
@@ -245,12 +245,12 @@ class CreatePost extends React.Component {
                   </Col>
                 </Row>
               </Container>
-            )
+            );
           }}
         </Mutation>
       </Wrapper>
-    )
+    );
   }
 }
 
-export default CreatePost
+export default CreatePost;

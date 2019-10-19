@@ -1,5 +1,5 @@
-import PleaseSignIn from '../components/auth/PleaseSignIn'
-import Dashboard from '../components/layout/Dashboard'
+import PleaseSignIn from '../components/auth/PleaseSignIn';
+import Dashboard from '../components/layout/Dashboard';
 // class Home extends Component {
 //     static async getInitialProps({ res, apolloClient }) {
 //       const { data } = await apolloClient.query({ query: CURRENT_USER_QUERY })
@@ -26,6 +26,6 @@ const Home = props => (
   <PleaseSignIn>
     <Dashboard />
   </PleaseSignIn>
-)
+);
 
-export default Home
+export default Home;

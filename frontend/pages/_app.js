@@ -1,30 +1,30 @@
-import App, { Container } from 'next/app'
-import Page from '../components/Page'
-import NProgress from 'nprogress'
-import Router from 'next/router'
-import Head from 'next/head'
-import { ApolloProvider } from 'react-apollo'
-import withData from '../lib/withData'
+import App, { Container } from 'next/app';
+import Page from '../components/Page';
+import NProgress from 'nprogress';
+import Router from 'next/router';
+import Head from 'next/head';
+import { ApolloProvider } from 'react-apollo';
+import withData from '../lib/withData';
 
 Router.onRouteChangeStart = () => {
-  NProgress.start()
-}
+  NProgress.start();
+};
 Router.onRouteChangeComplete = () => {
-  NProgress.done()
-}
+  NProgress.done();
+};
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
-    let pageProps = {}
+    let pageProps = {};
     if (Component.getInitialProps) {
-      pageProps = await Component.getInitialProps(ctx)
+      pageProps = await Component.getInitialProps(ctx);
     }
 
-    pageProps.query = ctx.query
-    return { pageProps }
+    pageProps.query = ctx.query;
+    return { pageProps };
   }
   render() {
-    const { Component, pageProps, apollo } = this.props
+    const { Component, pageProps, apollo } = this.props;
 
     return (
       <Container>
@@ -37,8 +37,8 @@ class MyApp extends App {
           </Page>
         </ApolloProvider>
       </Container>
-    )
+    );
   }
 }
 
-export default withData(MyApp)
+export default withData(MyApp);

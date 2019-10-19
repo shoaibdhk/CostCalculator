@@ -1,24 +1,25 @@
-const cookieParser = require('cookie-parser')
-const jwt = require('jsonwebtoken')
-require('dotenv').config()
+const cookieParser = require('cookie-parser');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
-const server = require('./src/server')
+const server = require('./src/server');
+if (process.env.NODE_ENV === 'production') server.express.set('trust proxy', 1);
 
-server.express.use(cookieParser())
+server.express.use(cookieParser());
 
 server.express.use((req, res, next) => {
-  let token = req.cookies.token
+  let token = req.cookies.token;
   if (token) {
-    const { userId } = jwt.verify(token, process.env.APP_SECRET)
+    const { userId } = jwt.verify(token, process.env.APP_SECRET);
 
-    req.userId = userId
+    req.userId = userId;
   }
-  next()
-})
+  next();
+});
 
 server.start(
   {
-    port: process.env.PORT,
+    port: 3030,
     debug: false,
     cors: {
       credentials: true,
@@ -26,6 +27,6 @@ server.start(
     }
   },
   ({ port }) => {
-    console.log(`GraphQL server working at http://localhost:${port}`)
+    console.log(`GraphQL server working at http://localhost:${port}`);
   }
-)
+);
