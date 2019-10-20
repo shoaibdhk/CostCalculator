@@ -24,6 +24,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { createHttpLink } from 'apollo-link-http';
 import { onError } from 'apollo-link-error';
 import { ApolloLink } from 'apollo-link';
+import Router from 'next/router';
 import { GRAPHQL_URL, GRAPHQL_URL_PROD } from '../config';
 
 // Create a middleware Auth where every time it sends and access the header the cookies
@@ -52,10 +53,10 @@ const client = ({ headers }) =>
     link: ApolloLink.from([
       onError(({ graphQLErrors, networkError }) => {
         if (graphQLErrors) {
-          sendToLoggingService(graphQLErrors);
+          Router.push('/signon');
         }
         if (networkError) {
-          logoutUser();
+          console.log('Network Error', networkError);
         }
       }),
       httpLinkWithAuthToken(headers)

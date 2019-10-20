@@ -23,7 +23,7 @@ server.start(
     debug: false,
     cors: {
       credentials: true,
-      origin: process.env.FRONTEND_URL
+      origin: ['http://localhost:3050/', 'http://localhost:5555']
     }
   },
   ({ port }) => {
