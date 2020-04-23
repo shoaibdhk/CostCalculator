@@ -54,7 +54,7 @@ services:
       - prisma
       - postgres
     environment:
-      - FRONTEND_URL="http://frontend:5555/"
+      - FRONTEND_URL="http://localhost:3050/"
   frontend:
     build: ./frontend
     restart: always
@@ -67,5 +67,7 @@ services:
       - /app/.next
     depends_on:
       - backend
+    environment:
+      - GRAPHQL_URL="http://localhost:3050/api"
 volumes:
   postgres: ~
