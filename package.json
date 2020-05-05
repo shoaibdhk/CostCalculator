@@ -1,8 +1,7 @@
 {
-	"name": "techdiary.dev-api",
+	"name": "type-graphql",
 	"version": "1.0.0",
 	"description": "",
-	"main": "index.js",
 	"scripts": {
 		"start": "node dist/server.ts",
 		"dev": "env-cmd ts-node-dev -r tsconfig-paths/register src/server.ts",
