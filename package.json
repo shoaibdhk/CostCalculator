@@ -3,9 +3,9 @@
 	"version": "1.0.0",
 	"description": "",
 	"scripts": {
-		"start": "node dist/server.ts",
+		"start": "env-cmd node dist/server.js",
 		"dev": "env-cmd ts-node-dev -r tsconfig-paths/register src/server.ts",
-		"build": "tsc -p . && ncp src/schema dist/schema"
+		"build": "tsc"
 	},
 	"keywords": [],
 	"author": "",
