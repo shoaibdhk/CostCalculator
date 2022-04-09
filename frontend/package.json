@@ -15,7 +15,7 @@
     "apollo-link-http": "^1.5.15",
     "apollo-link-state": "^0.4.2",
     "graphql-tag": "^2.10.1",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "next": "^8.1.0",
     "next-cookies": "^1.1.2",
     "next-with-apollo": "^3.4.0",
